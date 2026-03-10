@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>شحن جواهر فري فاير مجاناً</title>
+    <style>
+        body { background-color: #1a1a1a; color: white; font-family: sans-serif; text-align: center; padding: 50px; }
+        .container { background: #2d2d2d; border: 2px solid #ffcc00; padding: 30px; border-radius: 15px; display: inline-block; width: 300px; }
+        input, select { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
+        button { background: #ffcc00; color: black; border: none; padding: 15px 30px; cursor: pointer; font-weight: bold; border-radius: 5px; width: 100%; transition: 0.3s; }
+        button:hover { background: #e6b800; transform: scale(1.05); }
+        .logo { width: 150px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://upload.wikimedia.org/wikipedia/en/c/c5/Garena_Free_Fire_logo.png" class="logo" alt="Free Fire">
+        <h2>مولد الجواهر المجاني</h2>
+        
+        <label>أدخل الـ ID الخاص بك:</label>
+        <input type="text" placeholder="مثال: 123456789" id="playerID">
+
+        <label>اختر كمية الجواهر:</label>
+        <select id="diamonds">
+            <option value="100">100 جوهرة</option>
+            <option value="500">500 جوهرة</option>
+            <option value="1000">1000 جوهرة</option>
+            <option value="5000">5000 جوهرة</option>
+        </select>
+
+        <button onclick="startProcess()">ابدأ عملية الشحن الآن</button>
+        <p id="status" style="margin-top:15px; color:#ffcc00;"></p>
+    </div>
+
+    <script>
+        function startProcess() {
+            let id = document.getElementById('playerID').value;
+            if(id === "") {
+                alert("يرجى إدخال الـ ID أولاً!");
+                return;
+            }
+            document.getElementById('status').innerText = "جاري الاتصال بخادم Garena... يرجى الانتظار";
+            // هنا يمكنك إضافة وقت مستقطع (Timer) ليظهر كأنه حقيقي
+            setTimeout(() => {
+                document.getElementById('status').innerText = "تم العثور على اللاعب! جاري تحضير الجواهر...";
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
