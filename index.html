@@ -2,51 +2,114 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>شحن جواهر فري فاير مجاناً</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شحن فري فاير - التحديث الجديد</title>
     <style>
-        body { background-color: #1a1a1a; color: white; font-family: sans-serif; text-align: center; padding: 50px; }
-        .container { background: #2d2d2d; border: 2px solid #ffcc00; padding: 30px; border-radius: 15px; display: inline-block; width: 300px; }
-        input, select { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
-        button { background: #ffcc00; color: black; border: none; padding: 15px 30px; cursor: pointer; font-weight: bold; border-radius: 5px; width: 100%; transition: 0.3s; }
-        button:hover { background: #e6b800; transform: scale(1.05); }
-        .logo { width: 150px; margin-bottom: 20px; }
+        body { background-color: #0f0f0f; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
+        .container { background: #1a1a1a; border: 2px solid #ffcc00; padding: 25px; border-radius: 15px; display: inline-block; max-width: 400px; width: 100%; box-shadow: 0 0 15px #ffcc0044; }
+        .step { display: none; }
+        .step.active { display: block; }
+        .logo { width: 150px; margin-bottom: 15px; }
+        
+        /* الأجهزة */
+        .device-container { display: flex; justify-content: space-around; margin: 20px 0; }
+        .device-box { cursor: pointer; border: 2px solid #333; padding: 10px; border-radius: 10px; width: 28%; transition: 0.3s; }
+        .device-box img { width: 35px; margin-bottom: 5px; }
+        .device-box.selected { border-color: #ffcc00; background: #ffcc0022; }
+
+        input, select { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #222; color: white; border-bottom: 2px solid #ffcc00; }
+        button { background: #ffcc00; color: black; border: none; padding: 15px; cursor: pointer; font-weight: bold; border-radius: 8px; width: 100%; margin-top: 10px; }
+        
+        /* التحقق */
+        .verify-btn { background: #25d366; color: white; text-decoration: none; display: block; padding: 15px; border-radius: 8px; font-weight: bold; margin-top: 15px; }
+        .loading-bar { width: 100%; background: #333; height: 10px; border-radius: 5px; margin: 15px 0; overflow: hidden; display: none; }
+        .progress { width: 0%; height: 100%; background: #ffcc00; transition: 0.5s; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://upload.wikimedia.org/wikipedia/en/c/c5/Garena_Free_Fire_logo.png" class="logo" alt="Free Fire">
-        <h2>مولد الجواهر المجاني</h2>
-        
-        <label>أدخل الـ ID الخاص بك:</label>
-        <input type="text" placeholder="مثال: 123456789" id="playerID">
+        <img src="https://upload.wikimedia.org/wikipedia/en/c/c5/Garena_Free_Fire_logo.png" class="logo">
 
-        <label>اختر كمية الجواهر:</label>
-        <select id="diamonds">
-            <option value="100">100 جوهرة</option>
-            <option value="500">500 جوهرة</option>
-            <option value="1000">1000 جوهرة</option>
-            <option value="5000">5000 جوهرة</option>
-        </select>
+        <div id="step1" class="step active">
+            <h3>أولاً: اختر نوع جهازك</h3>
+            <div class="device-container">
+                <div class="device-box" onclick="setDevice(this)">
+                    <img src="https://img.icons8.com/color/48/android-os.png"><br>أندرويد
+                </div>
+                <div class="device-box" onclick="setDevice(this)">
+                    <img src="https://img.icons8.com/color/48/iphone.png"><br>آيفون
+                </div>
+                <div class="device-box" onclick="setDevice(this)">
+                    <img src="https://img.icons8.com/color/48/monitor.png"><br>PC
+                </div>
+            </div>
+            <button onclick="nextStep(2)">المتابعة</button>
+        </div>
 
-        <button onclick="startProcess()">ابدأ عملية الشحن الآن</button>
-        <p id="status" style="margin-top:15px; color:#ffcc00;"></p>
+        <div id="step2" class="step">
+            <h3>ثانياً: معلومات الحساب</h3>
+            <input type="text" id="playerID" placeholder="أدخل ID اللاعب">
+            <select id="diamonds">
+                <option value="1000">1000 جوهرة</option>
+                <option value="5000">5000 جوهرة</option>
+                <option value="10000">10000 جوهرة</option>
+            </select>
+            <button onclick="startLoading()">توليد الجواهر</button>
+            <div class="loading-bar" id="lBar"><div class="progress" id="pBar"></div></div>
+            <p id="status"></p>
+        </div>
+
+        <div id="step3" class="step">
+            <h3 style="color: #ffcc00;">آخر خطوة: التحقق البشري</h3>
+            <p>لإرسال الجواهر إلى حسابك، يجب عليك نشر رابط الموقع لـ 5 من أصدقائك أو في المجموعات لتأكيد أنك لست روبوت.</p>
+            <p style="font-size: 11px; color: #888;">الرابط: https://omairyadak26-commits.github.io/-/</p>
+            <a href="whatsapp://send?text=شاهدوا! حصلت على جواهر فري فاير مجاناً من هذا الموقع، جربوه الآن: https://omairyadak26-commits.github.io/-/" class="verify-btn">انشر على واتساب الآن</a>
+            <button onclick="checkVerify()" style="background: transparent; color: #ffcc00; border: 1px solid #ffcc00; margin-top: 10px;">تحقق من النشر</button>
+        </div>
     </div>
 
     <script>
-        function startProcess() {
-            let id = document.getElementById('playerID').value;
-            if(id === "") {
-                alert("يرجى إدخال الـ ID أولاً!");
+        function setDevice(el) {
+            document.querySelectorAll('.device-box').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function nextStep(s) {
+            if (s === 2 && !document.querySelector('.selected')) {
+                alert("يرجى اختيار الجهاز أولاً!");
                 return;
             }
-            document.getElementById('status').innerText = "جاري الاتصال بخادم Garena... يرجى الانتظار";
-            // هنا يمكنك إضافة وقت مستقطع (Timer) ليظهر كأنه حقيقي
-            setTimeout(() => {
-                document.getElementById('status').innerText = "تم العثور على اللاعب! جاري تحضير الجواهر...";
-            }, 2000);
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step' + s).classList.add('active');
+        }
+
+        function startLoading() {
+            let id = document.getElementById('playerID').value;
+            if(id.length < 5) { alert("أدخل ID صحيح!"); return; }
+            
+            document.getElementById('lBar').style.display = 'block';
+            let pBar = document.getElementById('pBar');
+            let status = document.getElementById('status');
+            let width = 0;
+
+            let interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    nextStep(3);
+                } else {
+                    width += 2;
+                    pBar.style.width = width + '%';
+                    if(width < 30) status.innerText = "جاري البحث عن الـ ID...";
+                    else if(width < 60) status.innerText = "جاري الاتصال بخادم Garena...";
+                    else status.innerText = "تم تجهيز الجواهر، بانتظار التحقق...";
+                }
+            }, 100);
+        }
+
+        function checkVerify() {
+            alert("لم يتم كشف النشر بعد، يرجى المحاولة مرة أخرى بعد النشر.");
         }
     </script>
-
 </body>
 </html>
